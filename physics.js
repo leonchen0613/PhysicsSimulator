@@ -1,9 +1,9 @@
 var canvas = document.getElementById("simulator");
 var ctx = canvas.getContext("2d");
-var x1 = 300;
-var y1 = 150;
-var x2 = 900;
-var y2 = 450;
+var x1 = 0;
+var y1 = 0;
+var x2 = 1200;
+var y2 = 600;
 var dx1 = 0;
 var dy1 = 0;
 var dx2 = 0;
@@ -13,10 +13,9 @@ var ddy1 = 0;
 var ddx2 = 0;
 var ddy2 = 0;
 var r1 = 40;
-var r2 = 30;
+var r2 = 40;
 var m1 = 4 / 3 * Math.PI * Math.pow(r1, 3);
 var m2 = 4 / 3 * Math.PI * Math.pow(r2, 3);
-var mu = 0.75;
 
 function calculate() {
     var a1 = (1000000000 / (Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))) / m1;
@@ -90,10 +89,14 @@ function accelerate() {
 
 function move() {
     if (Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)) <= r1 + r2) {
-        dx1 = mu * -dx1;
-        dy1 = mu * -dy1;
-        dx2 = mu * -dx2;
-        dy2 = mu * -dy2;
+        dx1 -= ddx1;
+        dy1 -= ddy1;
+        dx2 -= ddx2;
+        dy2 -= ddy2;
+        dx1 = -dx1;
+        dy1 = -dy1;
+        dx2 = -dx2;
+        dy2 = -dy2;
     }
     x1 += dx1;
     y1 += dy1;
